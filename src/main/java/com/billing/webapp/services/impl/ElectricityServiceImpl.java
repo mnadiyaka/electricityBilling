@@ -5,12 +5,13 @@ import com.billing.webapp.model.entity.Electricity;
 import com.billing.webapp.repository.ElectricityRepository;
 import com.billing.webapp.services.ElectricityService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ElectricityServiceImpl implements ElectricityService {
 
     private final ElectricityRepository electricityRepository;
@@ -21,14 +22,19 @@ public class ElectricityServiceImpl implements ElectricityService {
     }
 
     @Override
-    public Electricity createElectricity(ElectricityDto ElectricityDto) {
-        return null;
+    public Electricity createElectricity(ElectricityDto electricityDto) {
+        return electricityRepository.insert(ElectricityDto.toElectricity(electricityDto));
     }
 
     @Override
     public Electricity updateElectricity(String id, ElectricityDto electricityDto) {
         Electricity electricity = getById(id);
-        return null;
+        electricity.setTariff(electricityDto.getTariff());
+        electricity.setMonthPaid(electricityDto.getMonthPaid());
+        electricity.setTotalPaid(electricityDto.getTotalPaid());
+        electricity.setMonthAmountSpend(electricityDto.getMonthAmountSpend());
+        electricity.setTotalAmountSpend(electricityDto.getTotalAmountSpend());
+        return electricityRepository.insert(electricity);
     }
 
     @Override

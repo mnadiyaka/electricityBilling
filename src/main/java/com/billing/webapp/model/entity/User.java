@@ -26,11 +26,11 @@ public class User implements UserDetails {
 
     private String password;
 
-    private Role role;
+    private Set<? extends GrantedAuthority> role;
 
     private Set<Address> addresses;
 
-    public User(String email, String password, Role role) {
+    public User(String email, String password, Set<? extends GrantedAuthority> role) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        return role;
     }
 
     @Override

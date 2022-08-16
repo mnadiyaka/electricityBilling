@@ -1,6 +1,7 @@
 package com.billing.webapp.model.dto;
 
 import com.billing.webapp.model.entity.Address;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,9 +9,7 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
 
-@ToString
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 public class AddressDto {
 

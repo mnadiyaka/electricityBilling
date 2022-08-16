@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("users")
+@RequestMapping("")
 public class UserController {
 
     private final UserService userService;
@@ -32,7 +32,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("/signUp")
     public String createUser(@RequestBody NewUserDto newUserDto) {
         userService.createUser(newUserDto);
         return "created";
@@ -40,7 +40,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    public String updateUser(@PathVariable String id, UserDto userDto) {
+    public String updateUser(@PathVariable String id, @RequestBody UserDto userDto) {
         userService.updateUser(id, userDto);
         return "updated";
     }

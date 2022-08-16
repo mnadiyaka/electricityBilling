@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping
+@RequestMapping("electricity")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ElectricityController {
 

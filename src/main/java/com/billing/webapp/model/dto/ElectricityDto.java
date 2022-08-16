@@ -18,13 +18,16 @@ public class ElectricityDto {
 
     private Double monthPaid;
 
+    private Double discount;
+
     public static Electricity toElectricity(ElectricityDto electricityDto){
         return new Electricity()
                 .setTariff(electricityDto.getTariff())
                 .setTotalAmountSpend(electricityDto.getTotalAmountSpend())
                 .setMonthAmountSpend(electricityDto.getMonthAmountSpend())
                 .setTotalPaid(electricityDto.getTotalPaid())
-                .setMonthPaid(electricityDto.getMonthPaid());
+                .setMonthPaid(electricityDto.getMonthPaid())
+                .setDiscount(electricityDto.getDiscount());
     }
 
     public static ElectricityDto toElectricityDto(Electricity electricity){
@@ -33,6 +36,7 @@ public class ElectricityDto {
                 .setTotalAmountSpend(electricity.getTotalAmountSpend())
                 .setMonthAmountSpend(electricity.getMonthAmountSpend())
                 .setTotalPaid(electricity.getTotalPaid())
-                .setMonthPaid(electricity.getMonthPaid());
+                .setMonthPaid(electricity.getMonthPaid())
+                .setDiscount(electricity.getDiscount());
     }
 }

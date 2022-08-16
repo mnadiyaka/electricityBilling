@@ -10,6 +10,7 @@ import com.billing.webapp.repository.UserRepository;
 import com.billing.webapp.services.AddressService;
 import com.billing.webapp.services.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,13 +20,12 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public List<UserDto> getAll() {
-        return userRepository.findAll().stream().filter(u -> u.getRole() == Role.USER).map(UserDto::toUserDto).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(u -> u.getRole() == Role.USER.getGrantedAuthorities()).map(UserDto::toUserDto).collect(Collectors.toList());
     }
 
     @Override
@@ -46,14 +46,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public void createUser(NewUserDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+        if (userRepository.findUserByEmail(userDto.getEmail()).isPresent()) {
             throw new EntityExistsException();
         }
 
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(Role.USER);
+        user.setRole(Role.USER.getGrantedAuthorities());
         user.setAddresses(new TreeSet<>());
         userRepository.insert(user);
     }
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public void assignRole(String id, Role role) {
         User user = getById(id);
-        user.setRole(role);
+        user.setRole(role.getGrantedAuthorities());
         userRepository.insert(user);
     }
 
@@ -93,6 +93,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(()->new EntityExistsException("User with " + username + "doesn't exist"));
+        return userRepository.findUserByEmail(username).orElseThrow(()->new EntityExistsException("User with " + username + "doesn't exist"));
     }
 }
