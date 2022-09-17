@@ -23,7 +23,7 @@ public class UserDto {
 
     Set<AddressDto> addresses;
 
-    public static UserDto toUserDto(User user){
+    public static UserDto toUserDto(User user) {
         return new UserDto()
                 .setEmail(user.getEmail())
                 .setAddresses(user.getAddresses().stream().map(AddressDto::toAddressDto).collect(Collectors.toSet()));

@@ -24,7 +24,7 @@ public class ElectricityDto {
 
     private LocalDate date;
 
-    public static Electricity toElectricity(ElectricityDto electricityDto){
+    public static Electricity toElectricity(ElectricityDto electricityDto) {
         return new Electricity()
                 .setTariff(electricityDto.getTariff())
                 .setTotalAmountSpend(electricityDto.getTotalAmountSpend())
@@ -35,7 +35,7 @@ public class ElectricityDto {
                 .setDate(electricityDto.getDate());
     }
 
-    public static ElectricityDto toElectricityDto(Electricity electricity){
+    public static ElectricityDto toElectricityDto(Electricity electricity) {
         return new ElectricityDto()
                 .setTariff(electricity.getTariff())
                 .setTotalAmountSpend(electricity.getTotalAmountSpend())

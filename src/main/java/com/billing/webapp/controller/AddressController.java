@@ -2,8 +2,6 @@ package com.billing.webapp.controller;
 
 import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.ElectricityDto;
-import com.billing.webapp.model.dto.NewUserDto;
-import com.billing.webapp.model.dto.UserDto;
 import com.billing.webapp.services.AddressService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

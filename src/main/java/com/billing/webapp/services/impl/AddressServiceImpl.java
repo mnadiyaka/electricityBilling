@@ -3,12 +3,10 @@ package com.billing.webapp.services.impl;
 import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.ElectricityDto;
 import com.billing.webapp.model.entity.Address;
-import com.billing.webapp.model.entity.Discount;
 import com.billing.webapp.repository.AddressRepository;
 import com.billing.webapp.services.AddressService;
 import com.billing.webapp.services.DiscountService;
 import com.billing.webapp.services.ElectricityService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -2,12 +2,12 @@ package com.billing.webapp.services.impl;
 
 import com.billing.webapp.model.dto.ElectricityDto;
 import com.billing.webapp.model.entity.Electricity;
+import com.billing.webapp.model.entity.ElectricityHolder;
 import com.billing.webapp.model.entity.History;
 import com.billing.webapp.repository.ElectricityRepository;
 import com.billing.webapp.services.ElectricityService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -116,7 +116,7 @@ public class ElectricityServiceImpl implements ElectricityService {
     @Override
     @SneakyThrows
     @Async
-    public CompletableFuture<Electricity> asyncInsertNewMonthSpend(String id, Integer data) {
+    public CompletableFuture<Electricity> asyncInsertNewMonthSpend(String id, Integer data, String key) {
         Electricity electricity = getById(id);
         electricity.setTotalAmountSpend(electricity.getMonthAmountSpend());
         electricity.setMonthAmountSpend(data);
@@ -128,10 +128,12 @@ public class ElectricityServiceImpl implements ElectricityService {
         electricityRepository.save(electricity);
 
 
-        Thread.sleep(30000L);
+        Thread.sleep(15000L);
         log.info("async works");
 
+        CompletableFuture<Electricity> future = CompletableFuture.completedFuture(electricity);
+        ElectricityHolder.setData(key, new ElectricityHolder.Temp().setFuture(future).setState(ElectricityHolder.State.COMPLETED));
 
-        return CompletableFuture.completedFuture(electricity);
+        return future;
     }
 }

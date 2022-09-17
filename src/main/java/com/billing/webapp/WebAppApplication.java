@@ -13,34 +13,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.concurrent.Executor;
 
-
 @SpringBootApplication
 @EnableMongoRepositories("com.billing.webapp.repository")
 @EnableAsync
 public class WebAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebAppApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WebAppApplication.class, args);
+    }
 
-	@Bean
-	protected PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(10);
-	}
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
 
-	@Bean
-	protected Discount initDiscount(DiscountService discountService){
-		return discountService.init();
-	}
+    @Bean
+    protected Discount initDiscount(DiscountService discountService) {
+        return discountService.init();
+    }
 
-	@Bean
-	public Executor taskExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(2);
-		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("Thread-");
-		executor.initialize();
-		return executor;
-	}
+    @Bean
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("Thread-");
+        executor.initialize();
+        return executor;
+    }
 }

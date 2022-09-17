@@ -28,5 +28,5 @@ public interface ElectricityService {
 
     Set<History> showHistory(String id);
 
-    CompletableFuture<Electricity> asyncInsertNewMonthSpend(String id, Integer data);
+    CompletableFuture<Electricity> asyncInsertNewMonthSpend(String id, Integer data, String key);
 }

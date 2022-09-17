@@ -1,11 +1,9 @@
 package com.billing.webapp.controller;
 
-import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.NewUserDto;
 import com.billing.webapp.model.dto.UserDto;
 import com.billing.webapp.model.entity.Role;
 import com.billing.webapp.services.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;

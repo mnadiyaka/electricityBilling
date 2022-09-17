@@ -5,9 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document
-public record Discount (String id, String type, Double discount){
+public record Discount(String id, String type, Double discount) {
 
-    public Discount{
+    public Discount {
         Objects.requireNonNull(type);
         Objects.requireNonNull(discount);
     }

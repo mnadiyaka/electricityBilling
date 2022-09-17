@@ -1,16 +1,12 @@
 package com.billing.webapp.controller;
 
-import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.ElectricityDto;
 import com.billing.webapp.model.entity.Electricity;
 import com.billing.webapp.model.entity.ElectricityHolder;
 import com.billing.webapp.services.ElectricityService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("electricity")
@@ -77,19 +70,23 @@ public class ElectricityController {
 
     @PutMapping("/{id}/new_data")
     public String newData(@PathVariable String id, @RequestBody Integer data) {
-        CompletableFuture<Electricity> result = electricityService.asyncInsertNewMonthSpend(id, data);
         String key = UUID.randomUUID().toString();
-        ElectricityHolder.setData(key, result);
+
+        CompletableFuture<Electricity> result = electricityService.asyncInsertNewMonthSpend(id, data, key);
+
+        if (!result.isDone()) {
+            ElectricityHolder.setData(key, new ElectricityHolder.Temp().setFuture(result).setState(ElectricityHolder.State.IN_PROGRESS));
+        }
         return key;
     }
 
     @GetMapping("/updatedRes")
     @SneakyThrows
-    public ResponseEntity<ElectricityDto> newData(@RequestParam String id) {
-        CompletableFuture<Electricity> electricity = ElectricityHolder.getData(id);
-        if (electricity != null) {
-            return new ResponseEntity<>(ElectricityDto.toElectricityDto(electricity.get()), HttpStatus.FOUND);
+    public ElectricityHolder.State newData(@RequestParam String id) {
+        ElectricityHolder.Temp temp = ElectricityHolder.getData(id);
+        if (temp != null) {
+            return temp.getState();
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ElectricityHolder.State.NOT_IDENTIFIED;
     }
 }

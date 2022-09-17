@@ -32,7 +32,7 @@ public class AddressDto {
 
     private String flatN;
 
-    public static Address toAddress(AddressDto addressDto){
+    public static Address toAddress(AddressDto addressDto) {
         return new Address()
                 .setRegion(addressDto.getRegion())
                 .setDistrict(addressDto.getDistrict())
@@ -43,7 +43,7 @@ public class AddressDto {
                 .setFlatN(addressDto.getFlatN());
     }
 
-    public static AddressDto toAddressDto(Address address){
+    public static AddressDto toAddressDto(Address address) {
         return new AddressDto()
                 .setRegion(address.getRegion())
                 .setDistrict(address.getDistrict())

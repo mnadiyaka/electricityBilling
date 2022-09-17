@@ -1,6 +1,5 @@
 package com.billing.webapp.services.impl;
 
-import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.NewUserDto;
 import com.billing.webapp.model.dto.UserDto;
 import com.billing.webapp.model.entity.Address;
@@ -9,7 +8,6 @@ import com.billing.webapp.model.entity.User;
 import com.billing.webapp.repository.UserRepository;
 import com.billing.webapp.services.AddressService;
 import com.billing.webapp.services.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -93,6 +91,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByEmail(username).orElseThrow(()->new EntityExistsException("User with " + username + "doesn't exist"));
+        return userRepository.findUserByEmail(username).orElseThrow(() -> new EntityExistsException("User with " + username + "doesn't exist"));
     }
 }
