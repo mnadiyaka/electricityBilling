@@ -1,4 +1,4 @@
-package com.billing.webapp.model.controller;
+package com.billing.webapp.controller;
 
 import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.NewUserDto;

@@ -1,4 +1,4 @@
-package com.billing.webapp.model.controller;
+package com.billing.webapp.controller;
 
 import com.billing.webapp.model.dto.AddressDto;
 import com.billing.webapp.model.dto.ElectricityDto;
@@ -50,19 +50,7 @@ public class AddressController {
         return "deleted";
     }
 
-    @PatchMapping("/{id}/verify")
-    public String verifyAddress(@PathVariable String id, @RequestBody boolean verify) {
-        addressService.verifyAddress(id, verify);
-        return "verified" + verify;
-    }
-
-    @PatchMapping("/{id}/electricity/{electricityId}")
-    public String assignElectricity(@PathVariable String id, @PathVariable String electricityId) {
-        addressService.assignElectricity(id, electricityId);
-        return "assigned";
-    }
-
-    @PatchMapping("/{id}/electricity/")
+    @PatchMapping("/{id}/electricity")
     public String assignElectricity(@PathVariable String id, @RequestBody ElectricityDto electricity) {
         addressService.assignElectricity(id, electricity);
         return "assigned";

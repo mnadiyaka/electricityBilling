@@ -1,4 +1,4 @@
-package com.billing.webapp.services.impl;
+package com.billing.webapp.services;
 
 import com.billing.webapp.model.entity.Discount;
 import com.billing.webapp.repository.DiscountRepository;
@@ -6,12 +6,13 @@ import com.billing.webapp.services.DiscountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class DiscountServiceImpl implements DiscountService {
+public final class DiscountServiceImpl implements DiscountService {
 
     private final DiscountRepository discountRepository;
 
@@ -25,5 +26,10 @@ public class DiscountServiceImpl implements DiscountService {
         discounts.add(new Discount( "5","NONE",1.0));
         discountRepository.saveAll(discounts);
         return discounts.get(1);
+    }
+
+    @Override
+    public Discount findById(String id) {
+        return discountRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

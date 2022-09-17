@@ -3,6 +3,7 @@ package com.billing.webapp.model.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class Address {
 
     private String flatN;
 
+    @DBRef(lazy = true)
     private Electricity electricity;
 
     private Discount discount;

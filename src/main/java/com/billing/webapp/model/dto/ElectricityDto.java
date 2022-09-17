@@ -4,6 +4,8 @@ import com.billing.webapp.model.entity.Electricity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
+
 @Data
 @Accessors(chain = true)
 public class ElectricityDto {
@@ -20,6 +22,8 @@ public class ElectricityDto {
 
     private Double discount;
 
+    private LocalDate date;
+
     public static Electricity toElectricity(ElectricityDto electricityDto){
         return new Electricity()
                 .setTariff(electricityDto.getTariff())
@@ -27,7 +31,8 @@ public class ElectricityDto {
                 .setMonthAmountSpend(electricityDto.getMonthAmountSpend())
                 .setTotalPaid(electricityDto.getTotalPaid())
                 .setMonthPaid(electricityDto.getMonthPaid())
-                .setDiscount(electricityDto.getDiscount());
+                .setDiscount(electricityDto.getDiscount())
+                .setDate(electricityDto.getDate());
     }
 
     public static ElectricityDto toElectricityDto(Electricity electricity){

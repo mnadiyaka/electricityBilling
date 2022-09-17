@@ -18,11 +18,9 @@ public interface AddressService {
 
     void deleteAddress(String id);
 
-    void assignElectricity(String id, String electricityId);
-
     void assignElectricity(String id, ElectricityDto electricityDto);
 
-    void verifyAddress(String id, boolean verify);
+    void addDiscount(String id, String discountId);
 
     void approveDiscount (String id, boolean approve);
 }

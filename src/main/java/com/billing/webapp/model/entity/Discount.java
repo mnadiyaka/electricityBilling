@@ -1,13 +1,16 @@
 package com.billing.webapp.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@AllArgsConstructor
-@Getter
-public enum Discount {
+import java.util.Objects;
 
-    ELDERLY_PERSON (0.35), DISABILITY(0.5), POOR(0.4), CHILDREN_3_PLUS(0.3), NONE(1.0);
+@Document
+public record Discount (String id, String type, Double discount){
 
-    private Double discount;
+    public Discount{
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(discount);
+    }
+
+    //ELDERLY_PERSON (0.35), DISABILITY(0.5), POOR(0.4), CHILDREN_3_PLUS(0.3), NONE(1.0);
 }

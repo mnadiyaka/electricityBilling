@@ -3,6 +3,7 @@ package com.billing.webapp.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +29,7 @@ public class User implements UserDetails {
 
     private Set<? extends GrantedAuthority> role;
 
+    @DBRef(lazy = true)
     private Set<Address> addresses;
 
     public User(String email, String password, Set<? extends GrantedAuthority> role) {
