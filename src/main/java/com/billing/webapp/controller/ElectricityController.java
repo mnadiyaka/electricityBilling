@@ -89,4 +89,9 @@ public class ElectricityController {
         }
         return ElectricityHolder.State.NOT_IDENTIFIED;
     }
+
+    @PatchMapping("/pay/{id}")
+    public String pay(@PathVariable String id, @RequestBody Double amount) {
+        return electricityService.pay(id, amount);
+    }
 }
